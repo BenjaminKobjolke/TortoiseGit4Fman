@@ -23,6 +23,41 @@ class GitInfo(DirectoryPaneListener):
         except NotADirectoryError as e:
             pass
 
+class Commit(DirectoryPaneCommand):
+	def __call__(self):
+            cmd = "/command:commit"
+            pane_path = self.pane.get_path()
+            path = as_human_readable(pane_path)
+            arg_path = '/path:"{}"'.format(path)
+            arg_close_on_end = '/closeonend={}'.format(2)
+            exec_command = ["TortoiseGitProc.exe", cmd, arg_path, arg_close_on_end]
+
+            show_status_message(' '.join(exec_command))
+            subprocess.run(' '.join(exec_command))
+
+class Revert(DirectoryPaneCommand):
+	def __call__(self):
+            cmd = "/command:revert"
+            pane_path = self.pane.get_path()
+            path = as_human_readable(pane_path)
+            arg_path = '/path:"{}"'.format(path)
+            arg_close_on_end = '/closeonend={}'.format(2)
+            exec_command = ["TortoiseGitProc.exe", cmd, arg_path, arg_close_on_end]
+
+            show_status_message(' '.join(exec_command))
+            subprocess.run(' '.join(exec_command))
+
+class Pull(DirectoryPaneCommand):
+	def __call__(self):
+            cmd = "/command:pull"
+            pane_path = self.pane.get_path()
+            path = as_human_readable(pane_path)
+            arg_path = '/path:"{}"'.format(path)
+            arg_close_on_end = '/closeonend={}'.format(2)
+            exec_command = ["TortoiseGitProc.exe", cmd, arg_path, arg_close_on_end]
+
+            show_status_message(' '.join(exec_command))
+            subprocess.run(' '.join(exec_command))            
 
 class ListGitCommands(DirectoryPaneCommand):
     _git_commands = [
@@ -37,8 +72,9 @@ class ListGitCommands(DirectoryPaneCommand):
         QuicksearchItem('pull', 'Pull', highlight=range(0,1)),
         QuicksearchItem('push', 'Push', highlight=range(2,3)),
         QuicksearchItem('resolve', 'Resolve Conflicts', highlight=range(0,1)),
+        QuicksearchItem('stashsave', 'Stash Save', highlight=range(0,1)),
     ]
-    _git_keys = ['a', 'k', 'n', 'c', 'd', 'i', 'l', 'f', 'p', 's', 'r']
+    _git_keys = ['a', 'k', 'n', 'c', 'd', 'i', 'l', 'f', 'p', 's', 'r', 't']
 
     def _execute(self, command, path=None, close_on_end=2):
         arg_command = '/command:' + command

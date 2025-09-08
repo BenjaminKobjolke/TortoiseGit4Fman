@@ -1,3 +1,6 @@
 [
-	{ "keys": ["Ctrl+G"], "command": "list_git_commands" }
+	{ "keys": ["Ctrl+G"], "command": "list_git_commands" },
+	{ "keys": [""], "command": "commit" },
+	{ "keys": [""], "command": "pull" },
+	{ "keys": [""], "command": "revert" }
 ]
